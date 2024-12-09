@@ -1,0 +1,33 @@
+logging:
+  config: config/logback.xml
+spring:
+  application:
+    name: Nexus
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/ahroo
+    username: postgres
+    password: postgres
+management:
+  server:
+    port: 8280
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    enable:
+      all: true
+  security:
+    enabled: true
+  health:
+    defaults:
+      enabled: false
+  ping:
+    enabled: true
+  diskspace:
+    enabled: true
+  livenessstate:
+    enabled: true
+  readinessstate:
+    enabled: true
