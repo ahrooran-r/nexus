@@ -134,4 +134,13 @@ public class ArticleService {
         var articles = articleRepository.findAllByUserAndIsDeletedFalse(author, pageable);
         return articles;
     }
+
+    public Page<Article> findAllByCategory(String category, Integer page, Integer size) {
+
+        Sort orderBy = Sort.by("lastUpdatedOn").descending();
+        Pageable pageable = PageRequest.of(page, size, orderBy);
+        //noinspection UnnecessaryLocalVariable
+        var articles = articleRepository.findAllByCategoryName(category, pageable);
+        return articles;
+    }
 }

@@ -21,4 +21,8 @@ public interface ArticleRepository extends SoftDeleteAwareJpaRepository<Article,
 
     @EntityGraph(type = EntityGraph.EntityGraphType.FETCH, value = "Article.eagerFetch.categories")
     Page<Article> findAllByUserAndIsDeletedFalse(User user, Pageable pageable);
+
+    // TODO: THis query is not optimized for handling large volumes
+    @Query(value = "select a from Article a join a.categories ac where ac.name=:categoryName")
+    Page<Article> findAllByCategoryName(String categoryName, Pageable pageable);
 }

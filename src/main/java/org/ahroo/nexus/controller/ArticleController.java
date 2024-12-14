@@ -77,4 +77,16 @@ public class ArticleController {
         return ResponseEntity.ok(articlePage);
     }
 
+    @GetMapping("/categories/{category}")
+    public ResponseEntity<ArticlePage> findAllByCategory(
+            @PathVariable("category") final String category,
+            @RequestParam(value = "page", required = false, defaultValue = "0") final Integer page,
+            @RequestParam(value = "size", required = false, defaultValue = "20") final Integer size
+
+    ) {
+        var articles = articleService.findAllByCategory(category, page, size);
+        var articlePage = ArticlePage.fromArticles(articles);
+        return ResponseEntity.ok(articlePage);
+    }
+
 }
