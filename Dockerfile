@@ -1,8 +1,10 @@
 FROM amazoncorretto:21-alpine-jdk
 LABEL maintainer="ahrooran17@gmail.com"
 
+ENV JAVA_OPTS=""
+
 WORKDIR /apps
-ENTRYPOINT ["java", "-jar", "*.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar *.jar"]
 
 
 # running docker in windows -> connecting to postgresql and kafka on machine?

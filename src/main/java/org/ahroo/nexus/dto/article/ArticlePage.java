@@ -10,7 +10,7 @@ import java.util.List;
 public record ArticlePage(
         int page,
         int totalPages,
-        int size,
+        int numFound,
         List<ArticleDTO> articleDTOs
 ) {
 
@@ -19,7 +19,7 @@ public record ArticlePage(
         return ArticlePage.builder()
                 .page(page.getNumber())
                 .totalPages(page.getTotalPages())
-                .size(page.getSize())
+                .numFound(page.getNumberOfElements())
                 .articleDTOs(articleDTOs)
                 .build();
     }

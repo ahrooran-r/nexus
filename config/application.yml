@@ -13,6 +13,7 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   kafka:
+    bootstrap-servers: localhost:9092
     client-id: nexus-0
     template:
       default-topic: NOTIFICATIONS
@@ -22,7 +23,6 @@ spring:
       fail-fast: true
     consumer:
       auto-offset-reset: latest
-      bootstrap-servers: localhost:9092
       client-id: nexus-0
       enable-auto-commit: true
       group-id: nexus-0-0
