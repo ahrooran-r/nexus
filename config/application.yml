@@ -65,6 +65,12 @@ management:
   readinessstate:
     enabled: true
 
+springdoc:
+  swagger-ui:
+    path: '/swagger-ui.html'
+  packagesToScan: org.ahroo.nexus
+  show-actuator: true
+
 # Business logic
 categories:
   vacuum: '0 0 0 * * SAT'

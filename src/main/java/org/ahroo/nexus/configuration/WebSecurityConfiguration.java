@@ -33,10 +33,15 @@ public class WebSecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
+
                     auth.requestMatchers(HttpMethod.POST, "/users/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/users/*").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/users/activate").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/articles/**").permitAll();
+
+                    auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
+                    auth.requestMatchers("/actuator/health").permitAll();
+
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(AbstractHttpConfigurer::disable)

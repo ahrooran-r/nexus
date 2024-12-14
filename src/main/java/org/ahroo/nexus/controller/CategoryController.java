@@ -1,5 +1,6 @@
 package org.ahroo.nexus.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.ahroo.nexus.service.CategoryService;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ public class CategoryController {
     /**
      * Ideally this should be an admin role. But I'm not complicating this setup further.
      */
+    @Hidden
     @GetMapping("/vacuum")
     public ResponseEntity<Integer> userProfile() {
         var result = categoryService.vacuum();
