@@ -1,0 +1,66 @@
+server:
+  port: 8080
+
+logging:
+  config: config/logback.xml
+
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ahroo
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  kafka:
+    client-id: nexus-0
+    template:
+      default-topic: NOTIFICATIONS
+    admin:
+      auto-create: false
+      client-id: nexus-0
+      fail-fast: true
+    consumer:
+      auto-offset-reset: latest
+      bootstrap-servers: localhost:9092
+      client-id: nexus-0
+      enable-auto-commit: true
+      group-id: nexus-0-0
+      max-poll-records: 1000
+
+  mail:
+    test-connection: true
+    host: smtp.gmail.com
+    port: 587
+    username: jack97singh@gmail.com
+    password: "nyet ytqz fsvd dfwv"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+management:
+  server:
+    port: 8280
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    enable:
+      all: true
+  security:
+    enabled: true
+  health:
+    defaults:
+      enabled: false
+  ping:
+    enabled: true
+  diskspace:
+    enabled: true
+  livenessstate:
+    enabled: true
+  readinessstate:
+    enabled: true

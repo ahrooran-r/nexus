@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <timestamp key="startTimestamp" datePattern="yyyy-MM-dd"/>
+    <property name="LOG_PATH" value="./logs"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <encoder>
+            <Pattern>
+                <!-- @formatter:off -->
+                %gray([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %highlight(%-5level) %magenta([%t]) %cyan(%logger) - %msg%n%throwable
+                <!-- @formatter:on -->
+            </Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SERVER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/Server-${startTimestamp}.log</file>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5level [%thread] \(%logger\) - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>
+                ${LOG_PATH}/archived/%d{yyyy-MM-dd}/Server-%d.log.gz
+            </fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/Error-${startTimestamp}.log</file>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] %-5level [%thread] \(%logger\) - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>
+                ${LOG_PATH}/archived/%d{yyyy-MM-dd}/Error-%d.log.gz
+            </fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="SERVER"/>
+        <appender-ref ref="ERROR"/>
+    </root>
+
+    <logger name="net.ttddyy.dsproxy" level="TRACE" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="SERVER"/>
+    </logger>
+
+    <logger name="org.springframework.cache" level="TRACE"/>
+    <logger name="org.springframework.security" level="DEBUG"/>
+    <logger name="org.springframework.data" level="TRACE"/>
+    <logger name="org.springframework.data.repository" level="ERROR"/>
+
+</configuration>
